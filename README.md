@@ -26,7 +26,7 @@ LeNet5(
 )
 ```
 
-### Internal Visualizations
+### Internal Visualisations
 
 The following images show the internal representations learned by each layer of the LeNet-5 network:
 
@@ -52,16 +52,16 @@ The following images show the internal representations learned by each layer of 
 
 ### Key Features
 
-- **Weight Initialization**: Uses fan-in based uniform initialization for stable training
+- **Weight Initialisation**: Uses fan-in based uniform initialisation for stable training
 - **Activation Function**: Scaled hyperbolic tangent (A=1.7159, S=2/3) for better gradient flow
-- **Loss Function**: Custom loss combining correct class penalty with log-sum-exp regularization
-- **RBF Output**: Final layer uses learned prototypes rather than traditional softmax for better generalization
+- **Loss Function**: Custom loss combining correct class penalty with log-sum-exp regularisation
+- **RBF Output**: Final layer uses learned prototypes rather than traditional softmax for better generalisation
 
 ### Implementation Details
 
 The implementation follows the original LeCun et al. (1998) paper specifications, including:
 - Hyperparameters (J=5, A=1.7159, S=2/3)
-– Padding of 2 for images
+– Padding of 2 for images (32 x 32)
 - Weight initialization schemes
 - Custom loss function
 - RBF output layer with learnable prototypes
