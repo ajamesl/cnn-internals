@@ -4,7 +4,7 @@ A reconstruction and internal visualisation of famous CNN architectures over the
 
 ## 1) LeNet-5 (1998) – Dataset: MNIST
 
-LeNet-5 is a pioneering convolutional neural network architecture designed by Yann LeCun and colleagues for handwritten digit recognition that was implemented in banking for reading cheques. The network consists of 7 layers with learnable parameters.
+LeNet-5 is a pioneering convolutional neural network architecture designed by Yann LeCun and colleagues for handwritten digit recognition that was implemented in banking for reading cheques. The network consists of 5 layers with learnable parameters.
 
 ### Model Architecture
 
