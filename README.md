@@ -1,4 +1,4 @@
-# CNN Internals
+# CNN Interpretability
 
 A reconstruction and internal visualisation of famous CNN architectures over the years using the method of Zeiler & Fergus (2013).
 
