@@ -1,6 +1,6 @@
 # CNN Interpretability
 
-A reconstruction and internal visualisation of famous CNN architectures over the years using the method of Zeiler & Fergus (2013).
+A reconstruction and visualisation of the internal activations of famous CNN architectures over the years.
 
 ## 1) LeNet-5 (1998) – Dataset: MNIST
 
