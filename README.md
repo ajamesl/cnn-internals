@@ -1,4 +1,4 @@
-# 💡 CNN Interpretability
+# 🫀 CNN Internals
 
 A reconstruction and visualisation of the internal activations of famous CNN architectures over the years.
 
