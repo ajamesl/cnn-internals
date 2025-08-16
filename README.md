@@ -28,7 +28,7 @@ LeNet5(
 
 ### Internal Visualisations
 
-The following images show the internal representations learned by each convolutional layer of the LeNet-5 network projected down to pixel space using a deconvolutional network along with corresponding image patches:
+The following images show the internal representations learned by each convolutional layer of the LeNet-5 network projected down to pixel space using a deconvolutional network. Activations are shown alongside their corresponding image patches:
 
 #### Convolutional Layer 1 (conv1)
 ![Conv1 Internal Representations](images/lenet-5_conv1.png)
