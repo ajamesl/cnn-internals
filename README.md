@@ -30,15 +30,15 @@ LeNet5(
 
 The following images show the internal representations learned by each layer of the LeNet-5 network:
 
-#### Convolutional Layer 1 (Conv1)
+#### Convolutional Layer 1 (conv1)
 ![Conv1 Internal Representations](images/lenet-5_conv1.png)
 *6 filters showing edge and texture detectors learned from MNIST digits*
 
-#### Convolutional Layer 2 (Conv2)  
+#### Convolutional Layer 2 (conv2)  
 ![Conv2 Internal Representations](images/lenet-5_conv2.png)
 *16 filters showing more complex pattern detectors combining features from Conv1*
 
-#### Convolutional Layer 3 (Conv3)
+#### Convolutional Layer 3 (conv3)
 ![Conv3 Internal Representations](images/lenet-5_conv3.png)
 *120 filters showing high-level digit-specific features*
 
