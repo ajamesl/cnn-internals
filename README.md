@@ -32,7 +32,7 @@ The following images show the internal representations learned by each convoluti
 
 #### Convolutional Layer 1 (conv1)
 ![Conv1 Internal Representations](images/lenet-5_conv1.png)
-*Filters showing edge and texture detectors learned from MNIST digits.*
+*Filters showing edge detection learned from MNIST digits.*
 
 #### Convolutional Layer 2 (conv2)  
 ![Conv2 Internal Representations](images/lenet-5_conv2.png)
