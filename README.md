@@ -34,17 +34,9 @@ The following images show the internal representations learned by each layer of 
 ![Conv1 Internal Representations](images/lenet-5_conv1.png)
 *6 filters showing edge and texture detectors learned from MNIST digits*
 
-#### Pooling Layer 1 (Pool1)
-![Pool1 Internal Representations](images/lenet-5_pool1.png)
-*6 pooled feature maps showing downsampled representations from Conv1*
-
 #### Convolutional Layer 2 (Conv2)  
 ![Conv2 Internal Representations](images/lenet-5_conv2.png)
 *16 filters showing more complex pattern detectors combining features from Conv1*
-
-#### Pooling Layer 2 (Pool2)
-![Pool2 Internal Representations](images/lenet-5_pool2.png)
-*16 pooled feature maps showing downsampled representations from Conv2*
 
 #### Convolutional Layer 3 (Conv3)
 ![Conv3 Internal Representations](images/lenet-5_conv3.png)
