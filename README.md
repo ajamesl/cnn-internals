@@ -1,10 +1,10 @@
 # 🫀 CNN Internals
 
-A reconstruction and visualisation of the internal activations of famous CNN architectures over the years.
+A reconstruction and visualisation of the internal activations of famous CNN architectures over the years. Activations are projected to pixel space using a Zeiler (2011) deconvolutional netwokr architecture and Selvaraju et al. (2017)'s Grad-CAM / Zhou et el. (2015)'s CAM heatmaps are overlayed on their corresponding image patches.
 
 ## 1) LeNet-5 (1998) – Dataset: MNIST
 
-LeNet-5 is a pioneering convolutional neural network architecture designed by Yann LeCun and colleagues for handwritten digit recognition that was implemented in banking for reading cheques. The network consists of 5 layers with learnable parameters (see notebook for specifics).
+LeNet-5 is a pioneering convolutional neural network architecture designed by Yann LeCun and colleagues for the purpose of handwritten digit recognition. LeNet-5 was deployed in the banking industry for the autonomous reading of cheques. The network consists of 5 layers with learnable parameters (see notebook for full details).
 
 ### Model Architecture
 
@@ -28,19 +28,19 @@ LeNet5(
 
 ### Internal Visualisations
 
-The following images show the internal representations learned by each convolutional layer of the LeNet-5 network projected down to pixel space using a deconvolutional network. Activations are shown alongside their corresponding image patches:
+The following images show the internal representations learned by each convolutional layer of the LeNet-5 network projected to pixel space:
 
 #### Convolutional Layer 1 (conv1)
 ![Conv1 Internal Representations](images/lenet-5_conv1.png)
-*Filters showing edge detection learned from MNIST digits.*
+*Filters showing edge detection learned from the digits – Majority of Grad-CAMs focusing on edges.*
 
 #### Convolutional Layer 2 (conv2)  
 ![Conv2 Internal Representations](images/lenet-5_conv2.png)
-*Filters showing more complex pattern detectors combining features from Conv1.*
+*Filters showing corner and curve detection – Grad-CAMs focusing on curves and corners.*
 
 #### Convolutional Layer 3 (conv3)
 ![Conv3 Internal Representations](images/lenet-5_conv3.png)
-*Filters showing high-level digit-specific features.*
+*Filters showing high-level digit-specific features - CAMs show focus on variety of complex features (straight lines, loops, etc.).*
 
 ### Key Features
 
