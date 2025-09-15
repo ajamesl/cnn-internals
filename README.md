@@ -1,6 +1,6 @@
 # 🫀 CNN Internals
 
-A reconstruction and visualisation of the internal activations of famous CNN architectures over the years. Activations are projected to pixel space using a Zeiler (2011) deconvolutional netwokr architecture.
+A reconstruction and visualisation of the internal activations of famous CNN architectures over the years. Activations are projected to pixel space using Zeiler's (2011) deconvolutional network architecture or the guided backpropagation of Springenberg et al. (2015).
 
 ## 1) LeNet-5 (1998) – Dataset: MNIST
 
@@ -110,7 +110,7 @@ The following images show the internal representations (top 9 activations per fe
 
 #### Convolutional Layer 5 (conv5)
 ![Conv1 Internal Representations](images/alexnet_conv5.png)
-*Filters showing high level pattern detection, e.g., dog faces and human hands.*
+*Filters showing high level pattern detection (e.g., dog faces and human hands).*
 
 ### Key Features
 
