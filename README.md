@@ -32,7 +32,7 @@ The following images show the internal representations (top 9 activations per fe
 
 #### Convolutional Layer 1 (conv1)
 ![Conv1 Internal Representations](images/lenet-5_conv1.png)
-*Filters showing edge detection learned from the digits – Majority of Grad-CAMs focusing on edges.*
+*Filters showing edge detection learned from the digits.*
 
 #### Convolutional Layer 2 (conv2)  
 ![Conv2 Internal Representations](images/lenet-5_conv2.png)
@@ -127,4 +127,4 @@ The implementation follows the original Krizhevsky et al. (2012) paper specifica
 - Model follow original architecture `conv1` 96×11×11 s4 p2 → LRN → 3×3 s2 maxpool; `conv2` 256×5×5 p2 → LRN → 3×3 s2 maxpool; `conv3` 384×3×3; `conv4` 384×3×3; `conv5` 256×3×3 → 3×3 s2 maxpool; FC: 9216→4096→4096→10 with ReLU and Dropout `p=0.5`
 - Normalisation with LRN with `size=5`, `alpha=5e-4`, `beta=0.75`, `k=2`
 - Kaiming normal init for Conv/Linear weights; biases zero
-- Guided Backprop (Springenberg et al. 2015) with custom ReLU hooks; receptive-field table to crop input-aligned patches; top-k activation tiles per feature map; optional Grad-CAM overlays for `conv5` patches
+- Guided Backprop (Springenberg et al. 2015) with custom ReLU hooks; receptive-field table to crop input-aligned patches; top-k activation tiles per feature map
