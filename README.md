@@ -59,7 +59,7 @@ The implementation follows the original LeCun et al. (1998) paper specifications
 - RBF output layer with learnable prototypes
 
 
-## 2) AlexNet (2012) – Dataset: Imagenette (subset of ImageNet dataset)
+## 2) AlexNet (2012) – Dataset: Imagenette (10 class subset of ImageNet)
 
 AlexNet is a breakthrough convolutional neural network architecture designed by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton. AlexNet is a deep CNN used for image clasification that marked the ascent of the deep learning era. AlexNet won the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3%, compared to 26.2% achieved by the second-best entry. The network consists of 8 layers with learnable parameters (see notebook for full details).
 
