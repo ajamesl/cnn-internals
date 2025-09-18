@@ -98,19 +98,19 @@ The following images show the internal representations (top 9 activations per fe
 
 #### Convolutional Layer 2 (conv2)  
 ![Conv2 Internal Representations](images/alexnet_conv2.png)
-*Filters showing straight line and number detection.*
+*Filters showing straight and curved line detection.*
 
 #### Convolutional Layer 3 (conv3)
 ![Conv3 Internal Representations](images/alexnet_conv3.png)
-*Filters showing curved lines and cross-hatch pattern detection.*
+*Filters showing pattersn composed of curved & striaght lines and digit detection.*
 
 #### Convolutional Layer 4 (conv4)
 ![Conv1 Internal Representations](images/alexnet_conv4.png)
-*Filters showing detection of complex combinations of straight and curved lines.*
+*Filters showing detection of complex features (e.g., human fingers, partial human/dog faces, etc.).*
 
 #### Convolutional Layer 5 (conv5)
 ![Conv1 Internal Representations](images/alexnet_conv5.png)
-*Filters showing high level pattern detection (e.g., dog faces and human hands).*
+*Filters showing high level pattern detection (e.g., full dog faces, golf balls, human hands etc.).*
 
 ### Key Features
 
