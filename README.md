@@ -32,15 +32,15 @@ The following images show the internal representations (top 9 activations per fe
 
 #### Convolutional Layer 1 (conv1)
 ![Conv1 Internal Representations](images/lenet-5_conv1.png)
-*Filters showing edge detection learned from the digits.*
+*Edge detection.*
 
 #### Convolutional Layer 2 (conv2)  
 ![Conv2 Internal Representations](images/lenet-5_conv2.png)
-*Filters showing corner and curve detection.*
+*Corner and curve detection.*
 
 #### Convolutional Layer 3 (conv3)
 ![Conv3 Internal Representations](images/lenet-5_conv3.png)
-*Filters showing high-level digit-specific features.*
+*High-level digit-specific features.*
 
 ### Key Features
 
@@ -58,6 +58,7 @@ The implementation follows the original LeCun et al. (1998) paper specifications
 - Custom loss function
 - RBF output layer with learnable prototypes
 
+<br><br>
 
 ## 2) AlexNet (2012) – Dataset: Imagenette (10 class subset of ImageNet)
 
@@ -98,19 +99,19 @@ The following images show the internal representations (top 9 activations per fe
 
 #### Convolutional Layer 2 (conv2)  
 ![Conv2 Internal Representations](images/alexnet_conv2.png)
-*Filters showing straight and curved line detection.*
+*Edge and texture detection.*
 
 #### Convolutional Layer 3 (conv3)
 ![Conv3 Internal Representations](images/alexnet_conv3.png)
-*Filters showing pattersn composed of curved & striaght lines and digit detection.*
+*Mid-level patterns composed of curved & straight lines; digit detection.*
 
 #### Convolutional Layer 4 (conv4)
 ![Conv1 Internal Representations](images/alexnet_conv4.png)
-*Filters showing detection of complex features (e.g., human fingers, partial human/dog faces, etc.).*
+*Complex features (e.g., human fingers, partial human/dog faces, etc.).*
 
 #### Convolutional Layer 5 (conv5)
 ![Conv1 Internal Representations](images/alexnet_conv5.png)
-*Filters showing high level pattern detection (e.g., full dog faces, golf balls, human hands etc.).*
+*High level global pattern detection (e.g., full dog faces, golf balls, human hands etc.).*
 
 ### Key Features
 
@@ -128,3 +129,102 @@ The implementation follows the original Krizhevsky et al. (2012) paper specifica
 - Normalisation with LRN with `size=5`, `alpha=5e-4`, `beta=0.75`, `k=2`
 - Kaiming normal init for Conv/Linear weights; biases zero
 - Guided Backprop (Springenberg et al. 2015) with custom ReLU hooks; receptive-field table to crop input-aligned patches; top-k activation tiles per feature map
+
+<br><br>
+
+## 3) VGG-16 (2014) – Dataset: Imagenette (10 class subset of ImageNet)
+
+VGG-16 is a deep convolutional neural network introduced by Simonyan and Zisserman (2015) featuring small 3×3 convolutions stacked depth-wise, leading to 13 convolutional layers followed by 3 fully-connected layers. Its simplicity and depth made it a strong baseline and influential architecture after placing first in the ImageNet Challenge 2014.
+
+### Model Architecture
+
+```
+VGG16(
+  (conv1): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu1): ReLU()
+  (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu2): ReLU()
+  (pool1): MaxPool2d(kernel_size=2, stride=2)
+  (conv3): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu3): ReLU()
+  (conv4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu4): ReLU()
+  (pool2): MaxPool2d(kernel_size=2, stride=2)
+  (conv5): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu5): ReLU()
+  (conv6): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu6): ReLU()
+  (conv7): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu7): ReLU()
+  (pool3): MaxPool2d(kernel_size=2, stride=2)
+  (conv8): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu8): ReLU()
+  (conv9): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu9): ReLU()
+  (conv10): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu10): ReLU()
+  (pool4): MaxPool2d(kernel_size=2, stride=2)
+  (conv11): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu11): ReLU()
+  (conv12): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu12): ReLU()
+  (conv13): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (relu13): ReLU()
+  (pool5): MaxPool2d(kernel_size=2, stride=2)
+  (avgpool): AdaptiveAvgPool2d(output_size=(7, 7))
+  (fc1): Linear(in_features=25088, out_features=4096, bias=True)
+  (relu14): ReLU()
+  (drop1): Dropout(p=0.5, inplace=False)
+  (fc2): Linear(in_features=4096, out_features=4096, bias=True)
+  (relu15): ReLU()
+  (drop2): Dropout(p=0.5, inplace=False)
+  (fc3): Linear(in_features=4096, out_features=10, bias=True)
+)
+```
+
+### Internal Visualisations
+
+The following images show the internal representations (top 9 activations per feature map for the first 6 channels) learned by selected convolutional layers of the VGG‑16 network projected onto pixel space using Guided Backpropagation (Springenberg et al. 2015):
+
+#### Convolutional Layer 2 (conv2)
+![Conv2 Internal Representations](images/vgg-16_conv2.png)
+*Early edge and color-contrast detectors.*
+
+#### Convolutional Layer 4 (conv4)
+![Conv4 Internal Representations](images/vgg-16_conv4.png)
+*Oriented edges and simple textures.*
+
+#### Convolutional Layer 6 (conv6)
+![Conv6 Internal Representations](images/vgg-16_conv6.png)
+*Compositions of edges into motifs and textures.*
+
+#### Convolutional Layer 8 (conv8)
+![Conv8 Internal Representations](images/vgg-16_conv8.png)
+*Mid-level parts and repeated patterns.*
+
+#### Convolutional Layer 10 (conv10)
+![Conv10 Internal Representations](images/vgg-16_conv10.png)
+*Object parts and multi-scale structures.*
+
+#### Convolutional Layer 13 (conv13)
+![Conv13 Internal Representations](images/vgg-16_conv13.png)
+*High-level semantic patterns approaching full object templates.*
+
+### Key Features
+
+- **Small 3×3 convolutions, deep stacks**: 13 conv layers with stride 1, padding 1; max pooling 2×2 between blocks
+- **Adaptive average pooling to 7×7**: Preserves compatibility with 224 crops for FC layers
+- **Regularisation**: Dropout `p = 0.5` on the first two fully-connected layers
+- **Kaiming normal initialisation**: For Conv/Linear weights; biases set to zero
+- **SGD with momentum + LR scheduling**: Momentum 0.9, weight decay 5e-4, ReduceLROnPlateau on Top‑1 accuracy
+- **Data preprocessing and augmentation**: Resize to 256, RandomCrop/CenterCrop to 224, RandomHorizontalFlip, ColorJitter; per-channel mean/std normalisation
+- **Receptive‑field aligned visualisations**: Guided Backprop with RF-matched input patches and top‑k activation tiles
+
+### Implementation Details
+
+The implementation follows the VGG-16 blueprint while adapting to Imagenette:
+- Training uses `BATCH_SIZE=256`, `NUM_EPOCHS=20`, 224×224 crops from 256 rescaled images
+- Normalisation with dataset mean/std computed over the training split; applied to train/val
+- Optimiser: SGD(lr=0.01, momentum=0.9, weight_decay=5e-4); scheduler: ReduceLROnPlateau(factor=0.1, patience=3)
+- Loss: CrossEntropyLoss; metrics: Top‑1 and Top‑5 accuracy
+- Visualiser: custom Guided Backprop ReLU hooks; RF table to crop patches; per‑layer top‑k activations for selected feature maps
