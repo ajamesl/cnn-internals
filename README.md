@@ -134,7 +134,7 @@ The implementation follows the original Krizhevsky et al. (2012) paper specifica
 
 ## 3) VGG-16 (2014) – Dataset: Imagenette (10 class subset of ImageNet)
 
-VGG-16 is a deep convolutional neural network introduced by Simonyan and Zisserman (2015) featuring small 3×3 convolutions stacked depth-wise, leading to 13 convolutional layers followed by 3 fully-connected layers. Its simplicity and depth made it a strong baseline and influential architecture after placing first in the ImageNet Challenge 2014.
+VGG-16 is one of a class of deep convolutional neural networks introduced by Simonyan and Zisserman (2015). VGG-16 features small 3×3 convolutions stacked depth-wise, leading to 13 convolutional layers followed by 3 fully-connected layers. Its simplicity and depth made it a strong baseline and influential architecture after placing first in the 2014 ImageNet Challenge.
 
 ### Model Architecture
 
@@ -231,7 +231,7 @@ The implementation follows the VGG-16 blueprint while adapting to Imagenette:
 
 <br><br>
 
-## 4) ResNet-18 (2015) – Dataset: Imagenette (10 class subset of ImageNet)
+## 4) ResNet (2015) – Dataset: Imagenette (10 class subset of ImageNet)
 
 ResNet is a breakthrough deep convolutional neural network architecture introduced by He et al. (2015). ResNet addressed the vanishing gradient problem by introducing novel skip connections and residual learning to the CNN architecture. The key innovation is the residual block, which allows gradients to flow directly through shortcut connections, enabling training of much deeper networks. ResNet-18 won the ILSVRC-2015 competition and achieved a top-5 error rate of 3.57%, significantly better than previous architectures.
 
