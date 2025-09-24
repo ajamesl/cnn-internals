@@ -228,3 +228,122 @@ The implementation follows the VGG-16 blueprint while adapting to Imagenette:
 - Optimiser: SGD(lr=0.01, momentum=0.9, weight_decay=5e-4); scheduler: ReduceLROnPlateau(factor=0.1, patience=3)
 - Loss: CrossEntropyLoss; metrics: Top‑1 and Top‑5 accuracy
 - Visualiser: custom Guided Backprop ReLU hooks; RF table to crop patches; per‑layer top‑k activations for selected feature maps
+
+<br><br>
+
+## 4) ResNet-18 (2015) – Dataset: Imagenette (10 class subset of ImageNet)
+
+ResNet is a breakthrough deep convolutional neural network architecture introduced by He et al. (2015). ResNet addressed the vanishing gradient problem by introducing novel skip connections and residual learning to the CNN architecture. The key innovation is the residual block, which allows gradients to flow directly through shortcut connections, enabling training of much deeper networks. ResNet-18 won the ILSVRC-2015 competition and achieved a top-5 error rate of 3.57%, significantly better than previous architectures.
+
+### Model Architecture
+
+```
+ResNet(
+  (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+  (bn1): BatchNorm2d(64)
+  (relu1): ReLU()
+  (pool1): MaxPool2d(kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+  (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn2): BatchNorm2d(64)
+  (relu2): ReLU()
+  (conv3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn3): BatchNorm2d(64)
+  (relu3): ReLU()
+  (conv4): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn4): BatchNorm2d(64)
+  (relu4): ReLU()
+  (conv5): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn5): BatchNorm2d(64)
+  (relu5): ReLU()
+  (conv6): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn6): BatchNorm2d(128)
+  (relu6): ReLU()
+  (conv7): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn7): BatchNorm2d(128)
+  (relu7): ReLU()
+  (conv_proj1): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+  (bn_proj1): BatchNorm2d(128)
+  (conv8): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn8): BatchNorm2d(128)
+  (relu8): ReLU()
+  (conv9): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn9): BatchNorm2d(128)
+  (relu9): ReLU()
+  (conv10): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn10): BatchNorm2d(256)
+  (relu10): ReLU()
+  (conv11): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn11): BatchNorm2d(256)
+  (relu11): ReLU()
+  (conv_proj2): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+  (bn_proj2): BatchNorm2d(256)
+  (conv12): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn12): BatchNorm2d(256)
+  (relu12): ReLU()
+  (conv13): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn13): BatchNorm2d(256)
+  (relu13): ReLU()
+  (conv14): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn14): BatchNorm2d(512)
+  (relu14): ReLU()
+  (conv15): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn15): BatchNorm2d(512)
+  (relu15): ReLU()
+  (conv_proj3): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+  (bn_proj3): BatchNorm2d(512)
+  (conv16): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn16): BatchNorm2d(512)
+  (relu16): ReLU()
+  (conv17): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+  (bn17): BatchNorm2d(512)
+  (relu17): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+  (fc): Linear(in_features=512, out_features=10, bias=True)
+)
+```
+
+### Internal Visualisations
+
+The following images show the internal representations (top 9 activations per feature map for the first 6 channels) learned by selected convolutional layers of the ResNet-18 network projected onto pixel space using Guided Backpropagation (Springenberg et al. 2015):
+
+#### Convolutional Layer 2 (conv2)
+![Conv2 Internal Representations](images/resnet_conv2.png)
+*Early edge and texture detection with residual connections preserving fine details.*
+
+#### Convolutional Layer 4 (conv4)
+![Conv4 Internal Representations](images/resnet_conv4.png)
+*Simple patterns and textures with enhanced feature preservation through skip connections.*
+
+#### Convolutional Layer 6 (conv6)
+![Conv6 Internal Representations](images/resnet_conv6.png)
+*Mid-level features and object parts with improved gradient flow.*
+
+#### Convolutional Layer 8 (conv8)
+![Conv8 Internal Representations](images/resnet_conv8.png)
+*Complex object parts and structural patterns enabled by residual learning.*
+
+#### Convolutional Layer 10 (conv10)
+![Conv10 Internal Representations](images/resnet_conv10.png)
+*High-level object components and semantic features.*
+
+#### Convolutional Layer 13 (conv13)
+![Conv13 Internal Representations](images/resnet_conv13.png)
+*Semantic object templates and high-level visual concepts.*
+
+### Key Features
+
+- **Residual Learning**: Skip connections allow gradients to flow directly, solving the vanishing gradient problem
+- **Batch Normalization**: Applied after each convolution for stable training and faster convergence
+- **Projection Shortcuts**: 1×1 convolutions with stride 2 for dimension matching when downsampling
+- **Adaptive Average Pooling**: Global average pooling before final classification layer
+- **Deep but Trainable**: 18 layers with residual blocks enabling effective gradient flow
+
+### Implementation Details
+
+The implementation follows the original He et al. (2016) ResNet architecture adapted for Imagenette:
+- Training uses `BATCH_SIZE=256`, `NUM_EPOCHS=30`, 224×224 crops with random resizing (256-480) and horizontal flip
+- Normalisation with dataset-computed mean/std applied to train/val splits
+- Optimiser: AdamW(lr=0.001, weight_decay=1e-4); scheduler: ReduceLROnPlateau(factor=0.1, patience=2)
+- Loss: CrossEntropyLoss; metrics: Top-1 and Top-5 accuracy
+- Initialisation: Kaiming normal for Conv weights, BatchNorm weights=1.0, biases=0.0
+- Visualiser: Guided Backprop with receptive-field aligned patches; top-k activations per feature map
