@@ -233,7 +233,7 @@ The implementation follows the VGG-16 blueprint while adapting to Imagenette:
 
 ## 4) ResNet (2015) – Dataset: Imagenette (10 class subset of ImageNet)
 
-ResNet is a breakthrough deep convolutional neural network architecture introduced by He et al. (2015). ResNet addressed the vanishing gradient problem by introducing novel skip connections and residual learning to the CNN architecture. The key innovation is the residual block, which allows gradients to flow directly through shortcut connections, enabling training of much deeper networks. ResNet-18 won the ILSVRC-2015 competition and achieved a top-5 error rate of 3.57%, significantly better than previous architectures.
+ResNet is a transformational deep convolutional neural network architecture introduced by He et al. (2015). ResNet addresses the vanishing gradient problem by introducing novel skip connections and residual learning to the CNN architecture. The key innovation is the residual block, which allows gradients to flow directly through shortcut connections, enabling training of much deeper networks. ResNet-18 won the ILSVRC-2015 competition and achieved a top-5 error rate of 3.57%, significantly better than previous architectures.
 
 ### Model Architecture
 
