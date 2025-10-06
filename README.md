@@ -231,7 +231,105 @@ The implementation follows the VGG-16 blueprint while adapting to Imagenette:
 
 <br><br>
 
-## 4) ResNet (2015) – Dataset: Imagenette (10 class subset of ImageNet)
+## 4) InceptionNet (2014) – Dataset: Imagenette (10 class subset of ImageNet)
+
+InceptionNet, also known as GoogLeNet, is a convolutional neural network architecture introduced by Szegedy et al. (2014) that innovated the Inception module, which performs convolutions with multiple filter sizes (1×1, 3×3, 5×5) in parallel and concatenates their outputs. This allows the network to capture features at multiple scales simultaneously, making it more efficient and effective than traditional sequential architectures. InceptionNet won the ILSVRC-2014 competition with a top-5 error rate of 6.67%, significantly improving upon previous architectures while using fewer parameters.
+
+### Model Architecture
+
+```
+InceptionNet(
+  (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3))
+  (bn1): BatchNorm2d(64)
+  (relu1): ReLU()
+  (maxpool1): MaxPool2d(kernel_size=3, stride=2, padding=1)
+  (conv2): Conv2d(64, 64, kernel_size=(1, 1))
+  (bn2): BatchNorm2d(64)
+  (relu2): ReLU()
+  (conv3): Conv2d(64, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (bn3): BatchNorm2d(192)
+  (relu3): ReLU()
+  (maxpool2): MaxPool2d(kernel_size=3, stride=2, padding=1)
+  [Inception 3a module with 256 output channels]
+  [Inception 3b module with 480 output channels]
+  (maxpool3): MaxPool2d(kernel_size=3, stride=2, padding=1)
+  [Inception 4a module with 512 output channels]
+  [Inception 4b module with 512 output channels]
+  [Inception 4c module with 512 output channels]
+  [Inception 4d module with 528 output channels]
+  [Inception 4e module with 832 output channels]
+  (maxpool4): MaxPool2d(kernel_size=3, stride=2, padding=1)
+  [Inception 5a module with 832 output channels]
+  [Inception 5b module with 1024 output channels]
+  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+  (dropout): Dropout(p=0.5, inplace=False)
+  (fc): Linear(in_features=1024, out_features=10, bias=True)
+)
+```
+
+### Internal Visualisations
+
+The following images show the internal representations (top 9 activations per feature map for the first 6 channels) learned by selected convolutional layers of the InceptionNet network projected onto pixel space using Guided Backpropagation (Springenberg et al. 2015):
+
+#### Convolutional Layer 2 (conv2)
+![Conv2 Internal Representations](images/inceptionnet_conv2.png)
+*Early edge detection and basic feature extraction.*
+
+#### Convolutional Layer 4 (conv4)
+![Conv4 Internal Representations](images/inceptionnet_conv4.png)
+*Simple pattern detection within the first Inception module.*
+
+#### Convolutional Layer 6 (conv6)
+![Conv6 Internal Representations](images/inceptionnet_conv6.png)
+*Mid-level feature composition through parallel convolutions.*
+
+#### Convolutional Layer 8 (conv8)
+![Conv8 Internal Representations](images/inceptionnet_conv8.png)
+*Complex feature detection leveraging multi-scale receptive fields.*
+
+#### Convolutional Layer 10 (conv10)
+![Conv10 Internal Representations](images/inceptionnet_conv10.png)
+*Higher-level pattern recognition in the second Inception module.*
+
+#### Convolutional Layer 12 (conv12)
+![Conv12 Internal Representations](images/inceptionnet_conv12.png)
+*Advanced feature combinations through parallel processing paths.*
+
+#### Convolutional Layer 14 (conv14)
+![Conv14 Internal Representations](images/inceptionnet_conv14.png)
+*Sophisticated pattern detection with multi-scale analysis.*
+
+#### Convolutional Layer 16 (conv16)
+![Conv16 Internal Representations](images/inceptionnet_conv16.png)
+*Complex object parts and structural patterns in the fourth Inception block.*
+
+#### Convolutional Layer 18 (conv18)
+![Conv18 Internal Representations](images/inceptionnet_conv18.png)
+*High-level semantic features emerging from parallel feature extraction.*
+
+### Key Features
+
+- **Inception Modules**: Parallel convolutions with 1×1, 3×3, and 5×5 filters plus max pooling, concatenated for multi-scale feature extraction
+- **Batch Normalization**: Added for stable training and faster convergence (deviation from original paper to address vanishing gradients)
+- **Dimension Reduction**: 1×1 convolutions before expensive 3×3 and 5×5 operations to reduce computational complexity
+- **Random Interpolation Augmentation**: Custom `RandomResizedCropWithRandInterp` with random interpolation methods for enhanced data augmentation
+- **Color Jittering**: Brightness, contrast, saturation, and hue augmentation for improved generalization
+- **Adaptive Average Pooling**: Global average pooling before final classification layer
+
+### Implementation Details
+
+The implementation follows the InceptionNet architecture adapted for Imagenette with key modifications:
+- Training uses `BATCH_SIZE=256`, `NUM_EPOCHS=30`, 224×224 crops with random resizing (256-480) and horizontal flip
+- Normalisation with dataset-computed mean/std applied to train/val splits
+- Optimiser: SGD(lr=0.01, momentum=0.9, weight_decay=2e-4); scheduler: StepLR(step_size=8, gamma=0.96)
+- Loss: CrossEntropyLoss; metrics: Top-1 and Top-5 accuracy
+- **BatchNorm Addition**: Each convolutional layer followed by BatchNorm2d for stable training (deviation from original paper required to avoid vanishing gradients)
+- Initialisation: Kaiming normal for Conv weights, BatchNorm weights=1.0, biases=0.0
+- Visualiser: Guided Backprop with receptive-field aligned patches; top-k activations per feature map across multiple Inception modules
+
+<br><br>
+
+## 5) ResNet (2015) – Dataset: Imagenette (10 class subset of ImageNet)
 
 ResNet is a transformational deep convolutional neural network architecture introduced by He et al. (2015). ResNet addresses the vanishing gradient problem by introducing novel skip connections and residual learning to the CNN architecture. The key innovation is the residual block, which allows gradients to flow directly through shortcut connections, enabling training of much deeper networks. ResNet-18 won the ILSVRC-2015 competition and achieved a top-5 error rate of 3.57%, significantly better than previous architectures.
 
