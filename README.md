@@ -445,3 +445,87 @@ The implementation follows the original He et al. (2016) ResNet architecture ada
 - Loss: CrossEntropyLoss; metrics: Top-1 and Top-5 accuracy
 - Initialisation: Kaiming normal for Conv weights, BatchNorm weights=1.0, biases=0.0
 - Visualiser: Guided Backprop with receptive-field aligned patches; top-k activations per feature map
+
+<br><br>
+
+## 6) MobileNet (2017) – Dataset: Imagenette (10 class subset of ImageNet)
+
+MobileNet is an efficient convolutional neural network architecture introduced by Howard et al. (2017) designed specifically for mobile and embedded vision applications. MobileNet uses depthwise separable convolutions to dramatically reduce computational cost and model size while maintaining competitive accuracy. The key innovation is decomposing standard convolutions into depthwise convolutions (applying a single filter per input channel) followed by pointwise convolutions (1×1 convolutions), achieving an 8 - 9x reduction in computational cost compared to standard convolutions.
+
+### Model Architecture
+
+```
+MobileNet(
+  (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+  (bn1): BatchNorm2d(32)
+  (relu1): ReLU()
+  (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+  (bn2): BatchNorm2d(32)
+  (relu2): ReLU()
+  (conv3): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1), padding=(0, 0), bias=False)
+  (bn3): BatchNorm2d(64)
+  (relu3): ReLU()
+  (conv4): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+  (bn4): BatchNorm2d(64)
+  (relu4): ReLU()
+  (conv5): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), padding=(0, 0), bias=False)
+  (bn5): BatchNorm2d(128)
+  (relu5): ReLU()
+  [... 22 more depthwise separable convolution blocks ...]
+  (conv26): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024, bias=False)
+  (bn26): BatchNorm2d(1024)
+  (relu26): ReLU()
+  (conv27): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1), padding=(0, 0), bias=False)
+  (bn27): BatchNorm2d(1024)
+  (relu27): ReLU()
+  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+  (fc): Linear(in_features=1024, out_features=10, bias=True)
+)
+```
+
+### Internal Visualisations
+
+The following images show the internal representations (top 9 activations per feature map for the first 6 channels) learned by selected convolutional layers of the MobileNet network projected onto pixel space using Guided Backpropagation (Springenberg et al. 2015):
+
+#### Convolutional Layer 2 (conv2)
+![Conv2 Internal Representations](images/mobilenet_conv2.png)
+*Early edge detection and basic feature extraction using depthwise separable convolutions.*
+
+#### Convolutional Layer 6 (conv6)
+![Conv6 Internal Representations](images/mobilenet_conv6.png)
+*Simple patterns and textures with efficient depthwise separable processing.*
+
+#### Convolutional Layer 10 (conv10)
+![Conv10 Internal Representations](images/mobilenet_conv10.png)
+*Mid-level features and object parts through optimised convolution blocks.*
+
+#### Convolutional Layer 14 (conv14)
+![Conv14 Internal Representations](images/mobilenet_conv14.png)
+*Complex object parts and structural patterns with reduced computational cost.*
+
+#### Convolutional Layer 18 (conv18)
+![Conv18 Internal Representations](images/mobilenet_conv18.png)
+*Higher-level pattern recognition leveraging efficient feature extraction.*
+
+#### Convolutional Layer 22 (conv22)
+![Conv22 Internal Representations](images/mobilenet_conv22.png)
+*Advanced feature combinations through depthwise separable convolutions.*
+
+### Key Features
+
+- **Depthwise Separable Convolutions**: Decompose standard convolutions into depthwise (spatial filtering) and pointwise (channel mixing) operations for 8-9x computational efficiency
+- **Batch Normalization**: Applied after each convolution for stable training and faster convergence
+- **Adaptive Average Pooling**: Global average pooling before final classification layer
+- **Mobile-Optimized**: Designed specifically for mobile and embedded devices with minimal memory and computational requirements
+- **Efficient Architecture**: 27 layers with depthwise separable blocks maintaining competitive accuracy
+
+### Implementation Details
+
+The implementation follows the original Howard et al. (2017) MobileNet architecture adapted for Imagenette:
+- Training uses `BATCH_SIZE=256`, `NUM_EPOCHS=30`, 224×224 crops with random resizing (0.5-1.0 scale) and horizontal flip
+- Normalisation with dataset-computed mean/std applied to train/val splits
+- Optimiser: RMSprop(lr=0.045, momentum=0.9, eps=1.0) with differential weight decay (0.0 for depthwise, 4e-5 for others); scheduler: StepLR(step_size=2, gamma=0.94)
+- Loss: CrossEntropyLoss; metrics: Top-1 and Top-5 accuracy
+- Initialisation: Kaiming normal for Conv weights, BatchNorm weights=1.0, biases=0.0
+- Data augmentation: RandomResizedCrop with ColorJitter for enhanced generalization
+- Visualiser: Guided Backprop with receptive-field aligned patches; top-k activations per feature map across depthwise separable blocks
